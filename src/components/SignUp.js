@@ -1,17 +1,20 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 import RegisterContext from "../contexts/RegisterContext";
 
 import logo from "../assets/logo2.png";
+
+import API_LINK from "./../data/links";
 
 function SignUp() {
   const { register, setRegister } = useContext(RegisterContext);
 
   const navigate = useNavigate();
 
-  function goToAddresForm(event) {
+  function toRegister(event) {
     event.preventDefault();
 
     if (register.password !== register.confirmationPassword) {
@@ -19,7 +22,22 @@ function SignUp() {
       return;
     }
 
-    navigate("/sign-up/address");
+    delete register.confirmationPassword;
+    console.log(register);
+
+    const promise = axios.post(`${API_LINK}/sign-up`, register);
+
+    promise.then((response) => {
+      alert("Usuário cadastrado com sucesso!");
+      navigate("/home");
+    });
+
+    promise.catch((error) => {
+      const { status, data } = error.response;
+
+      alert(`Não foi possível realizar o cadastro.
+        Erro ${status}: ${data} `);
+    });
   }
 
   return (
@@ -28,7 +46,7 @@ function SignUp() {
         <Logo src={logo} alt="logo techjobs" />
       </Link>
       <RegisterSpan> Cadastre-se: </RegisterSpan>
-      <RegisterForm onSubmit={goToAddresForm}>
+      <RegisterForm onSubmit={toRegister}>
         <input
           type="text"
           placeholder="Nome"
@@ -75,11 +93,8 @@ function SignUp() {
         ></input>
 
         <input
-          type="text"
+          type="url"
           placeholder="LinkedIn"
-          minLength="14"
-          maxLength="14"
-          pattern="^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?"
           title="O link deve ter um formato de URL válido."
           required
           value={register.linkedin}
@@ -89,9 +104,13 @@ function SignUp() {
         ></input>
 
         <select
-          onChange={(event) => setRegister({ ...register, type: event.target.value })}
+          type="number"
           placeholder="Tipo de usuário"
           required
+          value={register.type}
+          onChange={(event) =>
+            setRegister({ ...register, type: Number(event.target.value) })
+          }
         >
           <option value="" disabled selected hidden>
             Tipo de usuário

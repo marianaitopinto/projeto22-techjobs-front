@@ -32,7 +32,7 @@ function SignIn() {
       const { data } = response;
 
       setUser(data);
-      navigate("/");
+      navigate("/home");
     });
 
     promise.catch((error) => {
@@ -87,7 +87,7 @@ function SignIn() {
       </LoginForm>
       <Link to="/sign-up">
         <RegisterLink>
-          Não tem uma conta? <strong>Cadastre-se</strong>
+          Não tem uma conta? <strong>Cadastre-se!</strong>
         </RegisterLink>
       </Link>
     </Content>
