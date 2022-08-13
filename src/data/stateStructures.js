@@ -1,0 +1,12 @@
+export const registerStructure = {
+  name: "",
+  email: "",
+  password: "",
+  confirmationPassword: "",
+  linkedin: "",
+  type: "",
+};
+
+export const userStructure = {
+  token: "",
+};
