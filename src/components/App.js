@@ -6,6 +6,7 @@ import GlobalStyle from "./GlobalStyle";
 import Home from "./Home";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import Jobs from "./Jobs";
 
 import RegisterContext from "../contexts/RegisterContext";
 import UserContext from "../contexts/UserContext";
@@ -28,6 +29,7 @@ function App() {
               <Route path="/" element={<SignIn />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/job/:id" element={<Jobs />} />
             </Routes>
           </BrowserRouter>
         </RegisterContext.Provider>
