@@ -61,7 +61,7 @@ export default function Jobs() {
     };
 
     const informations = {
-      status: 'opened',
+      status: "opened",
       cadidateId: Number(user.user.id),
       jobId: Number(id),
     };
@@ -74,7 +74,30 @@ export default function Jobs() {
 
     promise.catch((error) => {
       const { status, data } = error.response;
+    });
+  }
 
+  function cancelApplication() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    const informations = {};
+
+    const promise = axios.post(
+      `${API_LINK}/application/leave/${id}`,
+      informations,
+      config
+    );
+
+    promise.then((response) => {
+      navigate("/home");
+    });
+
+    promise.catch((error) => {
+      const { status, data } = error.response;
     });
   }
 
@@ -106,12 +129,18 @@ export default function Jobs() {
             ) : (
               <div>Situação: Fechada para candidaturas</div>
             )}
+
             {applications.length === 0 ? (
               <button onClick={() => apply()}>Candidatar</button>
+            ) : applications.status === "abdicated" ? (
+              <div>Candidatura cancelada pelo usuário. </div>
             ) : (
               <>
                 <div>Você se candidatou para essa vaga!</div>
                 <div>Status: {applications.status}</div>
+                <button onClick={() => cancelApplication()}>
+                  Cancelar candidatura
+                </button>
               </>
             )}
           </main>

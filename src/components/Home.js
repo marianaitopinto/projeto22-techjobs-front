@@ -69,7 +69,17 @@ export default function Home() {
         {data.length === 0 ? (
           <div>Você ainda não possui candidaturas!</div>
         ) : (
-          <div>Vagas</div>
+          <Jobs>
+            {data.map((d) => {
+              return (
+                <JobContainer onClick={() => navigate(`/job/${d.job.id}`)}>
+                  <h2>{d.job.jobTitle}</h2>
+                  <div>{d.job.description}</div>
+                  <button>Mais informações</button>
+                </JobContainer>
+              );
+            })}
+          </Jobs>
         )}
         <h1>Vagas</h1>
         <Jobs>
@@ -134,7 +144,6 @@ const JobContainer = styled.div`
   align-items: center;
 
   div {
-
     font-size: 12px;
     height: min-content;
     text-align: center;
@@ -177,4 +186,3 @@ const Jobs = styled.div`
   padding: 10px;
   justify-content: space-evenly;
 `;
-
