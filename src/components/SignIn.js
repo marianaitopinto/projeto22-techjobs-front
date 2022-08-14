@@ -32,6 +32,7 @@ function SignIn() {
       const { data } = response;
 
       setUser(data);
+      console.log(data)
       navigate("/home");
     });
 
