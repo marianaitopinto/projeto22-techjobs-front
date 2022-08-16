@@ -38,8 +38,6 @@ export default function CompanyPage() {
   }, []);
 
   const openedJobs = companyJobs.filter((job) => job.status === "opened");
-  console.log(openedJobs, "olha o teste");
-  console.log("as vagas aqui", companyJobs);
 
   return loading ? (
     <>
