@@ -29,7 +29,7 @@ function SignUp() {
 
     promise.then((response) => {
       alert("Usuário cadastrado com sucesso!");
-      navigate("/home");
+      navigate("/");
     });
 
     promise.catch((error) => {
