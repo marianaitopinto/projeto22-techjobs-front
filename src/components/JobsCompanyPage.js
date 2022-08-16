@@ -7,21 +7,66 @@ import { Oval } from "react-loader-spinner";
 
 import UserContext from "../contexts/UserContext";
 
-import JobsCandidatePage from "./JobsCandidatePage";
-import JobsCompanyPage from "./JobsCompanyPage";
-
 import returnIcon from "../assets/iconreturn.png";
 import API_LINK from "../data/links";
 
-export default function Jobs() {
+export default function JobsCompanyPage() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [job, setJob] = useState([]);
-  const [applications, setApplications] = useState([]);
   const { user } = useContext(UserContext);
 
-  return user.user.type === 1 ? <JobsCandidatePage /> : <JobsCompanyPage />;
+  useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    const promise = axios.get(`${API_LINK}/jobs/${id}`, config);
+    promise.then((res) => {
+      setJob(res.data);
+      setLoading(false);
+    });
+    promise.catch(() => {
+      alert("Não foi possível carregar.");
+      setLoading(false);
+    });
+  }, []);
+
+  console.log(job);
+  return loading ? (
+    <>
+      <Loading>
+        <p>Carregando...</p>
+        <Oval color="#FFFFFF" height={80} width={80} />
+      </Loading>
+    </>
+  ) : (
+    <>
+      <Content>
+        <>
+          <main>
+            <img
+              src={returnIcon}
+              alt="Seta para retornar"
+              className="icon"
+              onClick={() => navigate(-1)}
+            ></img>
+            <h1>{job.jobTitle}</h1>
+            <p>{job.user.name}</p>
+            <div>Descrição: {job.description}</div>
+            {job.status === "opened" ? (
+              <div>Situação: Aceita candidaturas</div>
+            ) : (
+              <div>Situação: Fechada para candidaturas</div>
+            )}
+          </main>
+        </>
+      </Content>
+    </>
+  );
 }
 
 const Loading = styled.div`
