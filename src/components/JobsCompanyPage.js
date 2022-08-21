@@ -81,14 +81,18 @@ export default function JobsCompanyPage() {
               <div>Situação: Fechada para candidaturas</div>
             )}
             <h1>Candidaturas:</h1>
-            {candidates.map((candidate) => {
-              return (
-                <>
-                  <div>{candidate.user.name}</div>
-                  <div>{candidate.user.linkedin}</div>
-                </>
-              );
-            })}
+            {candidates.lenght === 0 ? (
+              <div>Sem candidaturas!</div>
+            ) : (
+              candidates.map((candidate) => {
+                return (
+                  <>
+                    <div>{candidate.user.name}</div>
+                    <div>{candidate.user.linkedin}</div>
+                  </>
+                );
+              })
+            )}
           </main>
         </>
       </Content>
