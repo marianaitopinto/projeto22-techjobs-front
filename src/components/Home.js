@@ -5,8 +5,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 
-import CompanyPage from "./CompanyPage";
-import CandidatePage from "./CandidatePage";
+import CompanyPage from "./CompanyHome";
+import CandidatePage from "./CandidateHome";
 
 import UserContext from "../contexts/UserContext";
 

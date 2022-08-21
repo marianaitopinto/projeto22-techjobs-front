@@ -15,6 +15,7 @@ export default function JobsCompanyPage() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [job, setJob] = useState([]);
+  const [candidates, setCandidates] = useState([]);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -35,7 +36,24 @@ export default function JobsCompanyPage() {
     });
   }, []);
 
-  console.log(job);
+  useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    const promise = axios.get(`${API_LINK}/application/company/${id}`, config);
+    promise.then((res) => {
+      setCandidates(res.data);
+      setLoading(false);
+    });
+    promise.catch(() => {
+      alert("Não foi possível carregar.");
+      setLoading(false);
+    });
+  }, []);
+  console.log(candidates);
   return loading ? (
     <>
       <Loading>
@@ -62,6 +80,15 @@ export default function JobsCompanyPage() {
             ) : (
               <div>Situação: Fechada para candidaturas</div>
             )}
+            <h1>Candidaturas:</h1>
+            {candidates.map((candidate) => {
+              return (
+                <>
+                  <div>{candidate.user.name}</div>
+                  <div>{candidate.user.linkedin}</div>
+                </>
+              );
+            })}
           </main>
         </>
       </Content>
