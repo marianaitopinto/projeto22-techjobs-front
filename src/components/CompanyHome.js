@@ -1,13 +1,10 @@
 import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 
 import UserContext from "../contexts/UserContext";
-
-import Header from "./Header";
 
 import API_LINK from "../data/links";
 

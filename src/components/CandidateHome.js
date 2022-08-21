@@ -5,11 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 
-import CompanyPage from "./CompanyHome";
-
 import UserContext from "../contexts/UserContext";
-
-import Header from "./Header";
 
 import API_LINK from "../data/links";
 
@@ -18,7 +14,6 @@ export default function CandidatePage() {
   const { user, setUser } = useContext(UserContext);
   const [data, setData] = useState([]);
   const [jobs, setJobs] = useState([]);
-  const [employeeJobs, setEmployeeJobs] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {

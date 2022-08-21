@@ -1,3 +1,3 @@
-const API_LINK = "http://localhost:5000"
+const API_LINK = "https://techjobsdriven.herokuapp.com/"
 
 export default API_LINK;

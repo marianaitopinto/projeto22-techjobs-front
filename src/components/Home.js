@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Oval } from "react-loader-spinner";
+import { useContext } from "react";
 
 import CompanyPage from "./CompanyHome";
 import CandidatePage from "./CandidateHome";
@@ -12,14 +8,8 @@ import UserContext from "../contexts/UserContext";
 
 import Header from "./Header";
 
-import API_LINK from "../data/links";
-
 export default function Home() {
   const { user, setUser } = useContext(UserContext);
-  const [data, setData] = useState([]);
-  const [jobs, setJobs] = useState([]);
-  const [employeeJobs, setEmployeeJobs] = useState([]);
-  const navigate = useNavigate();
 
   return (
     <>

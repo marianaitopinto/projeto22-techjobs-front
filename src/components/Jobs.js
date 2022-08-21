@@ -1,24 +1,12 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Oval } from "react-loader-spinner";
+import { useContext } from "react";
 
 import UserContext from "../contexts/UserContext";
 
 import JobsCandidatePage from "./JobsCandidatePage";
 import JobsCompanyPage from "./JobsCompanyPage";
 
-import returnIcon from "../assets/iconreturn.png";
-import API_LINK from "../data/links";
-
 export default function Jobs() {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [job, setJob] = useState([]);
-  const [applications, setApplications] = useState([]);
   const { user } = useContext(UserContext);
 
   return user.user.type === 1 ? <JobsCandidatePage /> : <JobsCompanyPage />;
